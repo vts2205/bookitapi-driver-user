@@ -1,60 +1,63 @@
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+  return sequelize.define('documents', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true
     },
-    user_id: {
+    document_id: {
       type: DataTypes.STRING(100),
       allowNull: false,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    contact: {
+    driver_id: {
       type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    gender: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    dob: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    fcm_token: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    wallet: {
-      type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0
+      references: {
+        model: 'drivers',
+        key: 'driver_id'
+      }
     },
-    start_otp: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    profile_pic: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     },
-    end_otp: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    national_id_number: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     },
-    referral: {
+    pan_number: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    license_number: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    pan_pic: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    aadhar_front: {
       type: DataTypes.STRING(255),
       allowNull: false
+    },
+    aadhar_back: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    license_front: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    license_back: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    expiry_at: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
     },
     created_at: {
       type: DataTypes.DATE,
@@ -68,7 +71,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'users',
+    tableName: 'documents',
     timestamps: false,
     indexes: [
       {
@@ -76,14 +79,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "user_id" },
+          { name: "document_id" },
         ]
       },
       {
-        name: "INDEX",
+        name: "index",
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "driver_id",
+        using: "BTREE",
+        fields: [
+          { name: "driver_id" },
         ]
       },
     ]

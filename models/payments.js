@@ -1,60 +1,37 @@
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+  return sequelize.define('payments', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true
     },
     user_id: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(50),
+      allowNull: false
+    },
+    payment_id: {
+      type: DataTypes.STRING(255),
       allowNull: false,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    contact: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    gender: {
-      type: DataTypes.STRING(100),
+    order_id: {
+      type: DataTypes.STRING(50),
       allowNull: true
     },
-    dob: {
-      type: DataTypes.STRING(100),
-      allowNull: true
+    payment_type: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      comment: "cc,dd,upi,nb"
     },
-    fcm_token: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    wallet: {
+    amount: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    status: {
+      type: DataTypes.STRING(255),
       allowNull: false,
-      defaultValue: 0
-    },
-    start_otp: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    end_otp: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    referral: {
-      type: DataTypes.STRING(255),
-      allowNull: false
+      comment: "Success, Failed"
     },
     created_at: {
       type: DataTypes.DATE,
@@ -68,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'users',
+    tableName: 'payments',
     timestamps: false,
     indexes: [
       {
@@ -76,11 +53,11 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "user_id" },
+          { name: "payment_id" },
         ]
       },
       {
-        name: "INDEX",
+        name: "index",
         using: "BTREE",
         fields: [
           { name: "id" },

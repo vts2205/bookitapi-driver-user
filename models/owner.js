@@ -1,60 +1,47 @@
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('users', {
+  return sequelize.define('owner', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true
     },
-    user_id: {
-      type: DataTypes.STRING(100),
+    owner_id: {
+      type: DataTypes.STRING(255),
       allowNull: false,
       primaryKey: true
     },
-    name: {
+    driver_id: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      references: {
+        model: 'drivers',
+        key: 'driver_id'
+      }
+    },
+    aadhar_front: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    contact: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    password: {
+    aadhar_back: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    gender: {
-      type: DataTypes.STRING(100),
+    pan_card: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    passbook: {
+      type: DataTypes.STRING(255),
       allowNull: true
     },
-    dob: {
-      type: DataTypes.STRING(100),
+    rental_agreement1: {
+      type: DataTypes.STRING(255),
       allowNull: true
     },
-    fcm_token: {
+    rental_agreement2: {
       type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    wallet: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0
-    },
-    start_otp: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    end_otp: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    referral: {
-      type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     },
     created_at: {
       type: DataTypes.DATE,
@@ -68,7 +55,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     sequelize,
-    tableName: 'users',
+    tableName: 'owner',
     timestamps: false,
     indexes: [
       {
@@ -76,14 +63,21 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "user_id" },
+          { name: "owner_id" },
         ]
       },
       {
-        name: "INDEX",
+        name: "index",
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "driver_id",
+        using: "BTREE",
+        fields: [
+          { name: "driver_id" },
         ]
       },
     ]
